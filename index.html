@@ -853,7 +853,24 @@ video {
             <div class="nav-buttons">
                 <button class="nav-btn" onclick="showSection('finalSection')">🎂 Final</button>
             </div>
+            
+            <!-- GIFT 1 - Message Section -->
+            <div class="gift-section" id="messageSection">
+                <h2>💌 My Birthday Message For You</h2>
+                <div style="background: #fff0f5; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                    <p style="font-size: 1.3em; line-height: 1.8; color: #333;">
+                        Wish you many more happy birthday my dear 🎉🎂❤️<br>
+                        God bless you always 💖<br>
+                        I miss you so much 🥺💘
+                    </p>
+                </div>
+                <textarea id="birthdayReply" placeholder="Type your reply here... ❤️"></textarea>
+                <button onclick="submitMessage('birthdayReply')" class="section-btn">Send Reply 💌</button>
+                <!-- FIXED: Submit button now calls submitAndGoBack -->
+                <button onclick="submitAndGoBack('birthdayReply', 'gift1')" class="section-btn">Submit</button>
+            </div>
 
+            
             <!-- GIFT 1 - Message Section -->
             <div class="gift-section" id="messageSection">
                 <h2>💌 My Birthday Message For You</h2>
