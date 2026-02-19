@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Birthday Surprise - Malarvanan 💖</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginContainer">
+        <h2>💖 Happy Birthday 💖</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Your Real Name:</label>
+                <input type="text" id="username" placeholder="Enter your name..." required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">How do I call you? ❤️:</label>
+                <input type="password" id="password" placeholder="Secret word..." required>
+            </div>
+            
+            <button type="submit">✨ Open Magic Portal ✨</button>
+            <div id="errorMessage" class="error"></div>
+        </form>
+    </div>
+
+    <!-- GIFT PAGE -->
+    <div class="gift-page" id="giftPage">
+        <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+        
+        <div class="container">
+            <h1>🎁 Happy Birthday My Love! 🎁</h1>
+            <div class="subtitle">
+                ✨ Click on any gift box to open your surprise! ✨
+            </div>
+
+            <!-- Gift Boxes -->
+            <div class="gifts-grid">
+                <!-- Gift Box 1 - Message -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-1 floating" id="giftBox1">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent1">
+                            <div class="gift-emoji">💝</div>
+                            <div class="gift-message">Love Letter!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel1">🎀 Box 1</span>
+                </div>
+
+                <!-- Gift Box 2 - Gallery -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-2 floating" id="giftBox2" style="animation-delay: 0.5s;">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent2">
+                            <div class="gift-emoji">📸</div>
+                            <div class="gift-message">Memories!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel2">🎀 Box 2</span>
+                </div>
+
+                <!-- Gift Box 3 - Video -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-3 floating" id="giftBox3" style="animation-delay: 1s;">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent3">
+                            <div class="gift-emoji">🎥</div>
+                            <div class="gift-message">Video Surprise!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel3">🎀 Box 3</span>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="showSection('finalSection')">🎂 Final</button>
+            </div>
+
+            <!-- GIFT 1 - Message Section -->
+            <div class="gift-section" id="messageSection">
+                <h2>💌 My Birthday Message For You</h2>
+                <div style="background: #fff0f5; padding: 30px; border-radius: 15px; margin: 20px 0;">
+                    <p style="font-size: 1.3em; line-height: 1.8; color: #333;">
+                        Wish you many more happy birthday my dear 🎉🎂❤️<br>
+                        God bless you always 💖<br>
+                        I miss you so much 🥺💘
+                    </p>
+                </div>
+                <textarea id="birthdayReply" placeholder="Type your reply here... ❤️"></textarea>
+                <button onclick="submitAndGoBack('birthdayReply', 'gift1')" class="section-btn">Submit</button>
+            </div>
+
+            <!-- GIFT 2 - Gallery Section -->
+            <div class="gift-section" id="gallerySection">
+                <h2>📸 Our Beautiful Memories 💖</h2>
+                <div class="gallery">
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ff9a9e'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 1%3C/text%3E%3C/svg%3E" alt="Memory 1">
+                        <p>First memory together 😌</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23fad0c4'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 2%3C/text%3E%3C/svg%3E" alt="Memory 2">
+                        <p>Shadow pic moment 🤗</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffb6c1'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 3%3C/text%3E%3C/svg%3E" alt="Memory 3">
+                        <p>Cinematic click ❤️</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffc3a0'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 4%3C/text%3E%3C/svg%3E" alt="Memory 4">
+                        <p>My favourite 🫣</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffd1dc'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 5%3C/text%3E%3C/svg%3E" alt="Memory 5">
+                        <p>Funny meet moment 😂</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffe4e1'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 6%3C/text%3E%3C/svg%3E" alt="Memory 6">
+                        <p>Recreation shot 😎</p>
+                    </div>
+                </div>
+                <textarea id="memoryReply" placeholder="Tell me your favourite memory... ❤️"></textarea>
+                <button onclick="submitMessage('memoryReply')" class="section-btn">Share Memory 📸</button>
+                <button onclick="submitAndGoBack('memoryReply', 'gift2')" class="section-btn">Submit</button>
+            </div>
+
+            <!-- GIFT 3 - Video Section -->
+            <div class="gift-section" id="videoSection">
+                <h2>🎥 Special Video For You</h2>
+                <div class="video-container">
+                    <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='300' viewBox='0 0 450 300'%3E%3Crect width='450' height='300' fill='%23333'/%3E%3Ctext x='120' y='150' fill='white' font-family='Arial' font-size='20'%3E🎥 Your Video Here%3C/text%3E%3C/svg%3E">
+                        <source src="#" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                </div>
+                <p style="color: #666; margin: 10px 0;">✨ Replace with your own video.mp4 file ✨</p>
+                <textarea id="videoReply" placeholder="Type something before watching... ❤️"></textarea>
+                <button onclick="playVideo()" class="section-btn">Play Video 🎥</button>
+                <button onclick="submitAndShowFinal('videoReply')" class="section-btn">Next ❤️</button>
+            </div>
+
+            <!-- Final Section -->
+            <div class="gift-section" id="finalSection">
+                <div class="final-message">
+                    <h1>🎂 Happy Birthday My Love 🎂</h1>
+                    <p>
+                        En nala mudinja oru small surprise 💖<br>
+                        Luv uh soo much ♾️ and miss you lots thangoo ❤️
+                    </p>
+                </div>
+            </div>
+
+            <!-- Status Panel -->
+            <div class="status-panel">
+                <h2 style="margin-bottom: 20px;">📊 Gift Opening Progress</h2>
+                
+                <div class="progress-bars">
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 1 - Message</span>
+                            <span id="box1Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box1" id="progress1" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 2 - Gallery</span>
+                            <span id="box2Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box2" id="progress2" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 3 - Video</span>
+                            <span id="box3Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box3" id="progress3" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="all-opened-message" id="allOpenedMessage">
+                    🎉 HAPPY BIRTHDAY MY LOVE! You've opened all gifts! 🎉
+                </div>
+
+                <button class="reset-btn" id="resetBtn">
+                    🔄 Reset All Boxes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

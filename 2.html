@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Birthday Surprise - Malarvanan 💖</title>
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            padding: 20px;
+        }
+
+        /* LOGIN PAGE TYPE - Access Restricted */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out;
+            z-index: 10;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: #ff4d6d;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e63950;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffe0e5;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff4d6d;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.3);
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff4d6d, #e63950);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .login-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 77, 109, 0.4);
+        }
+
+        .error {
+            color: #ff4444;
+            text-align: center;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        /* MAIN GIFT PAGE - Interactive Experience */
+        .gift-page {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        .gift-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+        }
+
+        .container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .subtitle {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        /* GIFT BOXES - Interactive Elements */
+        .gifts-grid {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .gift-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .box-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 70%;
+            border-radius: 10px 10px 5px 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .box-lid {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 30%;
+            border-radius: 8px 8px 0 0;
+            transition: transform 0.5s ease-in-out;
+            transform-origin: top;
+            z-index: 2;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.2);
+        }
+
+        .ribbon-horizontal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(90deg, #f8e3a0, #ffd700, #f8e3a0);
+            z-index: 3;
+        }
+
+        .ribbon-vertical {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(180deg, #f8e3a0, #ffd700, #f8e3a0);
+            z-index: 3;
+        }
+
+        .bow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            z-index: 4;
+        }
+
+        .bow-left, .bow-right {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(145deg, #ffd700, #f8e3a0);
+            border-radius: 50% 50% 0 50%;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .bow-left { left: -5px; transform: rotate(-45deg); }
+        .bow-right { right: -5px; transform: rotate(45deg); }
+
+        .bow-center {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(145deg, #ffd700, #f8e3a0);
+            border-radius: 50%;
+        }
+
+        /* Gift Box Colors */
+        .gift-box-1 .box-body { background: linear-gradient(145deg, #ff6b6b, #ff5252); }
+        .gift-box-1 .box-lid { background: linear-gradient(145deg, #ff8a8a, #ff6b6b); }
+        .gift-box-2 .box-body { background: linear-gradient(145deg, #6c5ce7, #5f3dc4); }
+        .gift-box-2 .box-lid { background: linear-gradient(145deg, #8a7cf5, #6c5ce7); }
+        .gift-box-3 .box-body { background: linear-gradient(145deg, #51cf66, #37b24d); }
+        .gift-box-3 .box-lid { background: linear-gradient(145deg, #69db7e, #51cf66); }
+
+        /* Gift Content */
+        .gift-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out 0.3s;
+            z-index: 1;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(3px);
+            border-radius: 10px;
+        }
+
+        .gift-content.show { opacity: 1; }
+
+        .gift-emoji { font-size: 50px; margin-bottom: 10px; animation: pop 0.5s ease-in-out; }
+        .gift-message { font-size: 16px; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 25px; }
+
+        .gift-box.open .box-lid { transform: rotateX(110deg) translateY(-10px); }
+        .gift-box.open .ribbon-horizontal,
+        .gift-box.open .ribbon-vertical,
+        .gift-box.open .bow { opacity: 0; transition: opacity 0.3s; }
+
+        .gift-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .floating { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+        /* GIFT SECTIONS - Content Pages */
+        .gift-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            color: #333;
+            animation: slideUp 0.5s ease-in-out;
+        }
+
+        .gift-section.active { display: block; }
+        .gift-section h2 { color: #ff4d6d; margin-bottom: 20px; font-size: 2em; }
+
+        /* MESSAGE SECTION - Personal Note Page */
+        .message-card {
+            background: #fff0f5;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .message-card p { font-size: 1.3em; line-height: 1.8; }
+
+        /* GALLERY SECTION - Image Gallery Page */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .memory {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .memory:hover { transform: translateY(-5px); }
+        .memory img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .memory p { font-size: 14px; margin-top: 8px; color: #333; }
+
+        /* VIDEO SECTION - Media Player Page */
+        .video-container { margin: 20px 0; }
+        video {
+            width: 60%;
+            max-width: 450px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* FORM ELEMENTS */
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 2px solid #ffe0e5;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: #ff4d6d; }
+
+        .section-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .section-btn:hover { transform: scale(1.05); }
+
+        /* STATUS PANEL - Progress Dashboard */
+        .status-panel {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            color: white;
+        }
+
+        .progress-bars {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .progress-item { flex: 1; min-width: 150px; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold; }
+        .progress-bar-bg { height: 20px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 0%; transition: width 0.5s; border-radius: 10px; }
+        .progress-bar-fill.box1 { background: linear-gradient(90deg, #ff6b6b, #ff5252); }
+        .progress-bar-fill.box2 { background: linear-gradient(90deg, #6c5ce7, #5f3dc4); }
+        .progress-bar-fill.box3 { background: linear-gradient(90deg, #51cf66, #37b24d); }
+
+        .all-opened-message {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,215,0,0.2);
+            border-radius: 50px;
+            animation: pulse 1s ease-in-out infinite;
+            display: none;
+        }
+        .all-opened-message.show { display: block; }
+
+        .reset-btn {
+            padding: 15px 40px;
+            background: white;
+            color: #2a5298;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .reset-btn:hover { transform: scale(1.05); }
+
+        /* FINAL SECTION - Celebration Page */
+        .final-message {
+            background: linear-gradient(135deg, #ff4d6d, #e63950);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+        }
+        .final-message h1 { color: white; margin-bottom: 20px; }
+        .final-message p { font-size: 1.5em; line-height: 1.8; }
+
+        /* NAVIGATION */
+        .nav-buttons { display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+
+        /* CONFETTI ANIMATION */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            top: -10px;
+            border-radius: 0 50% 50% 50%;
+            animation: confetti-fall 3s linear forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        @keyframes confetti-fall { to { transform: translateY(100vh) rotate(720deg); } }
+
+        /* ANIMATIONS */
+        @keyframes slideIn { from{opacity:0;transform:translateY(-30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes slideUp { from{transform:translateY(20px);opacity:0} to{transform:translateY(0);opacity:1} }
+        @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
+        @keyframes glow { 0%,100%{text-shadow:2px 2px 4px rgba(0,0,0,0.5)} 50%{text-shadow:0 0 20px rgba(255,255,255,0.8)} }
+        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05);background:rgba(255,215,0,0.3)} }
+
+        /* UTILITY */
+        .hidden { display: none !important; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .gift-box { width: 150px; height: 150px; }
+            .container h1 { font-size: 2em; }
+            .gift-emoji { font-size: 40px; }
+            .gift-message { font-size: 14px; }
+            .login-container { width: 90%; padding: 30px; }
+            .gift-page { padding: 15px; }
+            video { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- PAGE TYPE 1: LOGIN/AUTHENTICATION PAGE -->
+    <div class="login-container" id="loginContainer">
+        <h2>💖 Happy Birthday 💖</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Your Real Name:</label>
+                <input type="text" id="username" placeholder="Enter your name..." required>
+            </div>
+            <div class="form-group">
+                <label for="password">How do I call you? ❤️:</label>
+                <input type="password" id="password" placeholder="Secret word..." required>
+            </div>
+            <button type="submit">✨ Open Magic Portal ✨</button>
+            <div id="errorMessage" class="error"></div>
+        </form>
+    </div>
+
+    <!-- PAGE TYPE 2: INTERACTIVE GIFT EXPERIENCE (SPA) -->
+    <div class="gift-page" id="giftPage">
+        <button class="logout-btn" id="logoutBtn">🚪 Logout</button>
+        
+        <div class="container">
+            <h1>🎁 Happy Birthday My Love! 🎁</h1>
+            <div class="subtitle">✨ Click on any gift box to open your surprise! ✨</div>
+
+            <!-- GIFT BOXES - Interactive Elements -->
+            <div class="gifts-grid">
+                <!-- Gift Box 1 - Message -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-1 floating" id="giftBox1">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent1">
+                            <div class="gift-emoji">💝</div>
+                            <div class="gift-message">Love Letter!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel1">🎀 Box 1</span>
+                </div>
+
+                <!-- Gift Box 2 - Gallery -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-2 floating" id="giftBox2" style="animation-delay: 0.5s;">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent2">
+                            <div class="gift-emoji">📸</div>
+                            <div class="gift-message">Memories!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel2">🎀 Box 2</span>
+                </div>
+
+                <!-- Gift Box 3 - Video -->
+                <div class="gift-wrapper">
+                    <div class="gift-box gift-box-3 floating" id="giftBox3" style="animation-delay: 1s;">
+                        <div class="box-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="ribbon-vertical"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="ribbon-horizontal" style="top: 50%; transform: translateY(-50%);"></div>
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                        <div class="gift-content" id="giftContent3">
+                            <div class="gift-emoji">🎥</div>
+                            <div class="gift-message">Video Surprise!</div>
+                        </div>
+                    </div>
+                    <span class="gift-label" id="giftLabel3">🎀 Box 3</span>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="showSection('finalSection')">🎂 Final</button>
+            </div>
+
+            <!-- PAGE TYPE 3: MESSAGE/LETTER SECTION -->
+            <div class="gift-section" id="messageSection">
+                <h2>💌 My Birthday Message For You</h2>
+                <div class="message-card">
+                    <p>
+                        Wish you many more happy birthday my dear 🎉🎂❤️<br>
+                        God bless you always 💖<br>
+                        I miss you so much 🥺💘
+                    </p>
+                </div>
+                <textarea id="birthdayReply" placeholder="Type your reply here... ❤️"></textarea>
+                <button onclick="submitMessage('birthdayReply')" class="section-btn">Submit Reply 💌</button>
+                <button onclick="closeSection()" class="section-btn">Back to Gifts 🎁</button>
+            </div>
+
+            <!-- PAGE TYPE 4: PHOTO GALLERY SECTION -->
+            <div class="gift-section" id="gallerySection">
+                <h2>📸 Our Beautiful Memories 💖</h2>
+                <div class="gallery">
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ff9a9e'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 1%3C/text%3E%3C/svg%3E" alt="Memory 1">
+                        <p>First memory together 😌</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23fad0c4'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 2%3C/text%3E%3C/svg%3E" alt="Memory 2">
+                        <p>Shadow pic moment 🤗</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffb6c1'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 3%3C/text%3E%3C/svg%3E" alt="Memory 3">
+                        <p>Cinematic click ❤️</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffc3a0'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 4%3C/text%3E%3C/svg%3E" alt="Memory 4">
+                        <p>My favourite 🫣</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffd1dc'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 5%3C/text%3E%3C/svg%3E" alt="Memory 5">
+                        <p>Funny meet moment 😂</p>
+                    </div>
+                    <div class="memory">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23ffe4e1'/%3E%3Ctext x='40' y='75' fill='white' font-family='Arial' font-size='14'%3E❤️ Memory 6%3C/text%3E%3C/svg%3E" alt="Memory 6">
+                        <p>Recreation shot 😎</p>
+                    </div>
+                </div>
+                <textarea id="memoryReply" placeholder="Tell me your favourite memory... ❤️"></textarea>
+                <button onclick="submitMessage('memoryReply')" class="section-btn">Share Memory 📸</button>
+                <button onclick="closeSection()" class="section-btn">Back to Gifts 🎁</button>
+            </div>
+
+            <!-- PAGE TYPE 5: VIDEO SECTION -->
+            <div class="gift-section" id="videoSection">
+                <h2>🎥 Special Video For You</h2>
+                <div class="video-container">
+                    <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='300' viewBox='0 0 450 300'%3E%3Crect width='450' height='300' fill='%23333'/%3E%3Ctext x='120' y='150' fill='white' font-family='Arial' font-size='20'%3E🎥 Your Video Here%3C/text%3E%3C/svg%3E">
+                        <source src="#" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                </div>
+                <p style="color: #666;">✨ Replace with your own video.mp4 file ✨</p>
+                <textarea id="videoReply" placeholder="Type something before watching... ❤️"></textarea>
+                <button onclick="playVideo()" class="section-btn">Play Video 🎥</button>
+                <button onclick="closeSection()" class="section-btn">Back to Gifts 🎁</button>
+            </div>
+
+            <!-- PAGE TYPE 6: FINAL CELEBRATION SECTION -->
+            <div class="gift-section" id="finalSection">
+                <div class="final-message">
+                    <h1>🎂 Happy Birthday My Love 🎂</h1>
+                    <p>
+                        En nala mudinja oru small surprise 💖<br>
+                        Luv uh soo much ♾️ and miss you lots thangoo ❤️
+                    </p>
+                </div>
+                <button onclick="closeSection()" class="section-btn">Back to Gifts 🎁</button>
+            </div>
+
+            <!-- PAGE TYPE 7: PROGRESS DASHBOARD -->
+            <div class="status-panel">
+                <h2 style="margin-bottom: 20px;">📊 Gift Opening Progress</h2>
+                
+                <div class="progress-bars">
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 1 - Message</span>
+                            <span id="box1Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box1" id="progress1" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 2 - Gallery</span>
+                            <span id="box2Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box2" id="progress2" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Box 3 - Video</span>
+                            <span id="box3Status">🔒 Unopened</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill box3" id="progress3" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="all-opened-message" id="allOpenedMessage">
+                    🎉 HAPPY BIRTHDAY MY LOVE! You've opened all gifts! 🎉
+                </div>
+
+                <button class="reset-btn" id="resetBtn">🔄 Reset All Boxes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PAGE TYPE CONFIGURATION
+        const giftBoxes = [
+            { id: 'giftBox1', contentId: 'giftContent1', labelId: 'giftLabel1', progressId: 'progress1', statusId: 'box1Status', sectionId: 'messageSection', isOpen: false,
+              surprises: [
+                  { emoji: '💝', message: 'Love Letter!' },
+                  { emoji: '💌', message: 'Sweet Message!' },
+                  { emoji: '💖', message: 'All My Love!' }
+              ] },
+            { id: 'giftBox2', contentId: 'giftContent2', labelId: 'giftLabel2', progressId: 'progress2', statusId: 'box2Status', sectionId: 'gallerySection', isOpen: false,
+              surprises: [
+                  { emoji: '📸', message: 'Beautiful Memories!' },
+                  { emoji: '📷', message: 'Picture Perfect!' },
+                  { emoji: '🎞️', message: 'Memory Lane!' }
+              ] },
+            { id: 'giftBox3', contentId: 'giftContent3', labelId: 'giftLabel3', progressId: 'progress3', statusId: 'box3Status', sectionId: 'videoSection', isOpen: false,
+              surprises: [
+                  { emoji: '🎥', message: 'Video Surprise!' },
+                  { emoji: '📹', message: 'Special Moment!' },
+                  { emoji: '🎬', message: 'Action!' }
+              ] }
+        ];
+
+        let openedCount = 0;
+
+        // PAGE TYPE 1: LOGIN FUNCTIONALITY
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('errorMessage');
+            
+            if (!username || !password) {
+                errorDiv.textContent = 'Please enter both fields ❤️';
+                return;
+            }
+            
+            if (username.toLowerCase() === 'malarvanan' && password.toLowerCase() === 'papa') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('giftPage').classList.add('active');
+                createConfetti(30);
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                errorDiv.textContent = '';
+            } else {
+                errorDiv.textContent = '🔒 Hmm... nee than en love ah? 😏';
+            }
+        });
+
+        // LOGOUT FUNCTIONALITY
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('giftPage').classList.remove('active');
+            resetAllBoxes();
+        });
+
+        // CONFETTI GENERATOR
+        function createConfetti(count = 30) {
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // PAGE TYPE 2: INTERACTIVE GIFT BOX
+        function openGiftBox(boxIndex) {
+            const box = giftBoxes[boxIndex];
+            
+            if (!box.isOpen) {
+                const boxElement = document.getElementById(box.id);
+                const contentElement = document.getElementById(box.contentId);
+                
+                boxElement.classList.add('open');
+                
+                setTimeout(() => contentElement.classList.add('show'), 300);
+
+                const randomSurprise = box.surprises[Math.floor(Math.random() * box.surprises.length)];
+                const emojiElement = contentElement.querySelector('.gift-emoji');
+                const messageElement = contentElement.querySelector('.gift-message');
+                
+                emojiElement.textContent = randomSurprise.emoji;
+                messageElement.textContent = randomSurprise.message;
+
+                box.isOpen = true;
+                openedCount++;
+                
+                createConfetti(20);
+                updateProgress();
+
+                setTimeout(() => showSection(box.sectionId), 500);
+            }
+        }
+
+        // PAGE TYPE 3-6: SECTION NAVIGATION
+        function showSection(sectionId) {
+            document.querySelectorAll('.gift-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeSection() {
+            document.querySelectorAll('.gift-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // MESSAGE SUBMISSION
+        function submitMessage(textareaId) {
+            const text = document.getElementById(textareaId).value;
+            if (text.trim() === '') {
+                alert('Please type something ❤️');
+                return false;
+            } else {
+                alert('Thank you! Your message means so much to me! 💖');
+                document.getElementById(textareaId).value = '';
+                return true;
+            }
+        }
+
+        // VIDEO FUNCTION
+        function playVideo() {
+            const text = document.getElementById('videoReply').value;
+            if (text.trim() === '') {
+                alert('Tell me something before watching ❤️');
+            } else {
+                alert('🎥 Video would play now! Add your video.mp4 file to see it!');
+            }
+        }
+
+        // PAGE TYPE 7: PROGRESS DASHBOARD
+        function updateProgress() {
+            giftBoxes.forEach((box, index) => {
+                const progressBar = document.getElementById(box.progressId);
+                const statusSpan = document.getElementById(box.statusId);
+                
+                if (box.isOpen) {
+                    progressBar.style.width = '100%';
+                    statusSpan.innerHTML = '🔓 Opened!';
+                } else {
+                    progressBar.style.width = '0%';
+                    statusSpan.innerHTML = '🔒 Unopened';
+                }
+            });
+
+            const allOpened = giftBoxes.every(box => box.isOpen);
+            const messageElement = document.getElementById('allOpenedMessage');
+            
+            if (allOpened) {
+                messageElement.classList.add('show');
+                createConfetti(50);
+            } else {
+                messageElement.classList.remove('show');
+            }
+        }
+
+        // RESET FUNCTIONALITY
+        function resetAllBoxes() {
+            giftBoxes.forEach((box, index) => {
+                const boxElement = document.getElementById(box.id);
+                const contentElement = document.getElementById(box.contentId);
+                
+                boxElement.classList.remove('open');
+                contentElement.classList.remove('show');
+                
+                const defaultSurprises = [
+                    { emoji: '💝', message: 'Love Letter!' },
+                    { emoji: '📸', message: 'Memories!' },
+                    { emoji: '🎥', message: 'Video Surprise!' }
+                ];
+                
+                const emojiElement = contentElement.querySelector('.gift-emoji');
+                const messageElement = contentElement.querySelector('.gift-message');
+                
+                emojiElement.textContent = defaultSurprises[index].emoji;
+                messageElement.textContent = defaultSurprises[index].message;
+                
+                box.isOpen = false;
+            });
+
+            openedCount = 0;
+            updateProgress();
+            
+            document.querySelectorAll('.gift-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            createConfetti(10);
+        }
+
+        // EVENT LISTENERS
+        document.getElementById('giftBox1').addEventListener('click', () => openGiftBox(0));
+        document.getElementById('giftBox2').addEventListener('click', () => openGiftBox(1));
+        document.getElementById('giftBox3').addEventListener('click', () => openGiftBox(2));
+        document.getElementById('resetBtn').addEventListener('click', resetAllBoxes);
+
+        // TOUCH SUPPORT
+        ['giftBox1', 'giftBox2', 'giftBox3'].forEach((id, index) => {
+            document.getElementById(id).addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                openGiftBox(index);
+            });
+        });
+
+        // KEYBOARD SHORTCUTS
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('giftPage').classList.contains('active')) {
+                switch(e.key) {
+                    case '1': openGiftBox(0); break;
+                    case '2': openGiftBox(1); break;
+                    case '3': openGiftBox(2); break;
+                    case 'r': case 'R': resetAllBoxes(); break;
+                }
+            }
+        });
+
+        // INITIALIZATION
+        window.addEventListener('load', () => {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('giftPage').classList.remove('active');
+            updateProgress();
+        });
+
+        // MAKE FUNCTIONS GLOBAL
+        window.showSection = showSection;
+        window.closeSection = closeSection;
+        window.submitMessage = submitMessage;
+        window.playVideo = playVideo;
+        window.openGiftBox = openGiftBox;
+    </script>
+</body>
+</html>

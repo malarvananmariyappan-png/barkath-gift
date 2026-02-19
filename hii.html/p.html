@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+.section{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.content{
+  background:white;
+  width:95%;
+  max-width:900px;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  animation:fadeIn 0.8s ease;
+}
+
+button{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  background:#e63950;
+}
+
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+img{
+  width:100%;
+  border-radius:15px;
+  margin-top:10px;
+}
+
+video{
+  display:block;
+  width:60%;
+  max-width:450px;
+  margin:20px auto;
+  border-radius:15px;
+}
+
+.hidden{display:none;}
+
+/* GALLERY GRID */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
+  margin-top:20px;
+}
+
+.memory{
+  background:#fff0f5;
+  padding:10px;
+  border-radius:15px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
+.memory img{
+  width:100%;
+  border-radius:10px;
+}
+
+.memory p{
+  font-size:14px;
+  margin-top:8px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.95);}
+  to{opacity:1; transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="section" id="loginPage">
+ <div class="content">
+  <h2>💖 Login My Love 💖</h2>
+  <input type="text" id="name" placeholder="Your Real Name">
+  <input type="password" id="password" placeholder="How do I call you? ❤️">
+  <button onclick="login()">Login</button>
+ </div>
+</div>
+
+<!-- GIFT OPTIONS -->
+<div class="section hidden" id="giftOptions">
+ <div class="content">
+  <h2>🎁 Choose Your Gift 🎁</h2>
+  <button onclick="openGift('gift1')">🎁 Gift 1</button>
+  <button onclick="openGift('gift2')">🎁 Gift 2</button>
+  <button onclick="openGift('gift3')">🎁 Gift 3</button>
+ </div>
+</div>
+
+<!-- GIFT 1 -->
+<div class="section hidden" id="gift1">
+ <div class="content">
+  <h2>🎁 Gift 1</h2>
+  <p>
+    Wish you many more happy birthday my dear 🎉🎂❤️  
+    God bless you always 💖  
+    I miss you so much 🥺💘
+  </p>
+  <textarea id="reply1" placeholder="Type something ❤️"></textarea>
+  <button onclick="backToOptions('gift1','reply1')">Submit</button>
+ </div>
+</div>
+
+<!-- GIFT 2 -->
+<div class="section hidden" id="gift2">
+ <div class="content">
+  <h2>🎁 Gift 2 - Our Beautiful Memories 💖</h2>
+
+  <div class="gallery">
+
+    <div class="memory">
+      <img src="photo1.jpeg">
+      <p>First memory together 😌</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo2.jpeg">
+      <p>Shadow pic moment 🤗</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo3.jpeg">
+      <p>Cinematic click ❤️</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo4.jpeg">
+      <p>My favourite 🫣</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo5.jpeg">
+      <p>Funny meet moment 😂</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo6.jpeg">
+      <p>Recreation shot 😎</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo7.jpeg">
+      <p>Rowdy vibes 🤪</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo8.jpeg">
+      <p>Fun time together 🫶</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo9.jpeg">
+      <p>Cute moment 💋</p>
+    </div>
+
+    <div class="memory">
+      <img src="photo10.jpeg">
+      <p>Always together ♾️</p>
+    </div>
+
+  </div>
+
+  <textarea id="reply2" placeholder="Tell me your favourite memory ❤️"></textarea>
+  <button onclick="backToOptions('gift2','reply2')">Submit</button>
+
+ </div>
+</div>
+
+<!-- GIFT 3 -->
+<div class="section hidden" id="gift3">
+ <div class="content">
+  <h2>🎁 Gift 3</h2>
+  <textarea id="reply3" placeholder="Before final surprise… tell me something ❤️"></textarea>
+  <button onclick="showVideo()">Submit</button>
+ </div>
+</div>
+
+<!-- VIDEO PAGE -->
+<div class="section hidden" id="videoPage">
+ <div class="content">
+  <h2>🎥 Just For You</h2>
+  <video controls autoplay>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <button onclick="showFinal()">Next ❤️</button>
+ </div>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="section hidden" id="finalPage">
+ <div class="content">
+  <h1>🎂 Happy Birthday My Love 🎂</h1>
+  <p>
+    En nala mudinja oru small surprise 💖  
+    Luv uh soo much ♾️ and miss you lots thangoo ❤️
+  </p>
+ </div>
+</div>
+
+<script>
+
+const correctName="Malarvanan";
+const correctPassword="papa";
+
+function login(){
+  let n=document.getElementById("name").value;
+  let p=document.getElementById("password").value;
+
+  if(n.toLowerCase()===correctName.toLowerCase() &&
+     p.toLowerCase()===correctPassword.toLowerCase()){
+      switchPage("loginPage","giftOptions");
+  }else{
+      alert("Hmm... nee than en love ah? 😏");
+  }
+}
+
+function openGift(id){
+  switchPage("giftOptions",id);
+}
+
+function backToOptions(giftId,replyId){
+  let text=document.getElementById(replyId).value;
+  if(text.trim()===""){
+    alert("Type something ❤️");
+    return;
+  }
+  switchPage(giftId,"giftOptions");
+}
+
+function showVideo(){
+  let text=document.getElementById("reply3").value;
+  if(text.trim()===""){
+    alert("Type something ❤️");
+    return;
+  }
+  switchPage("gift3","videoPage");
+}
+
+function showFinal(){
+  switchPage("videoPage","finalPage");
+}
+
+function switchPage(hideId,showId){
+  document.getElementById(hideId).classList.add("hidden");
+  document.getElementById(showId).classList.remove("hidden");
+}
+
+</script>
+
+</body>
+</html>
